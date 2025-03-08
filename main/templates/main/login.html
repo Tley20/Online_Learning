@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+{% block title %}Entrance{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center mt-5">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+        <div class="card-body">
+            <h2 class="text-center mb-3">Entrance</h2>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Login</label>
+                    <input type="text" name="username" class="form-control" placeholder="Введите логин" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Введите пароль" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Enter</button>
+            </form>
+
+            <p class="text-center mt-3">
+                No account? <a href="{% url 'register' %}" class="text-decoration-none">Register</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

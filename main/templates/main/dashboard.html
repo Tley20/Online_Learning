@@ -1,0 +1,13 @@
+{% extends "main/base.html" %}
+{% block title %}Personal account{% endblock %}
+{% block content %}
+    <h1 class="mb-4">Welcome, {{ user.username }}!</h1>
+    <p>Ваши курсы:</p>
+    <ul class="list-group">
+        {% for course in user.courses %}
+            <li class="list-group-item">
+                <a href="{% url 'course_detail' course.id %}">{{ course.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "main/base.html" %}
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="row g-0">
+            {% if course.image %}
+            <div class="col-md-4">
+                <img src="{{ course.image.url }}" class="img-fluid rounded-start" alt="{{ course.title }}">
+            </div>
+            {% endif %}
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title">{{ course.title }}</h1>
+                    <p class="text-muted">Author: {{ course.author.username }}</p>
+                    <p class="card-text">{{ course.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h3>Course content</h3>
+        {% for lesson in course.lessons.all %}
+        <div class="mb-3 p-3 border rounded bg-light">
+            <h5>{{ lesson.title }}</h5>
+            <p>{{ lesson.content|safe }}</p>
+            {% if lesson.video %}
+            <div class="ratio ratio-16x9">
+                <video class="w-100" controls>
+                    <source src="{{ lesson.video.url }}" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p class="text-muted">There are no lessons yet.</p>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'homepage' %}" class="btn btn-primary mt-3">Back</a>
+</div>
+{% endblock %}
+
+

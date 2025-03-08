@@ -1,0 +1,31 @@
+{% extends "main/base.html" %}
+{% block title %}Courses{% endblock %}
+{% load static %}
+{% block content %}
+    <h1 class="text-center mb-4">Available courses</h1>
+    <form method="GET" action="" class="mb-3 d-flex">
+        <input type="text" name="search" class="form-control me-2" placeholder="Поиск курсов">
+        <button type="submit" class="btn btn-primary">To find</button>
+    </form>
+   <div class="container mt-4">
+    <div class="row">
+        {% for course in courses %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                {% if course.image %}
+                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                {% else %}
+                <img src="{% static 'images/default-course.jpg' %}" class="card-img-top" alt="No Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description|truncatechars:100 }}</p>
+                    <p><strong>Price:</strong> {{ course.price }} тг.</p>
+                    <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">More detailed</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+   </div>
+{% endblock %}
